@@ -1,10 +1,24 @@
 ﻿<h1>Ejemplos session</h1>
 
+<h2 style="color: blue">
+	@Context.Session.GetString("nombre")
+</h2>
+
+<h2 style="color: red">
+	@Context.Session.GetString("hora")
+</h2>
+
 <ul class="list-group">
 	<li class="list-group-item">
 		<a asp-controller="EjemploSession"
 		asp-action="SessionSimple">
 		Session simple
+		</a>
+	</li>
+	<li class="list-group-item">
+		<a asp-controller="EjemploSession"
+		   asp-action="SessionMascota">
+			Session Binary
 		</a>
 	</li>
 </ul>

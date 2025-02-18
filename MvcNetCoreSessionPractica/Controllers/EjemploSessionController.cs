@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MvcNetCoreSessionPractica.Helpers;
+using MvcNetCoreSessionPractica.Models;
 
 namespace MvcNetCoreSessionPractica.Controllers
 {
@@ -6,6 +8,30 @@ namespace MvcNetCoreSessionPractica.Controllers
     {
         public IActionResult Index()
         {
+            return View();
+        }
+
+        public IActionResult SessionMascota(string accion)
+        {
+            if(accion != null)
+            {
+                if (accion.ToLower() == "almacenar")
+                {
+                    Mascota mascota = new Mascota();
+                    mascota.Nombre = "Flounder";
+                    mascota.Raza = "Pex";
+                    mascota.Edad = 5;
+                    byte[] data = HelpperBinarySession.ObjectToByte(mascota);
+                    HttpContext.Session.Set("MASCOTA", data);
+                    ViewData["MENSAJE"] = "Mascota almacenada en session";
+                }else if (accion.ToLower() == "mostrar")
+                {
+                    byte[] data = HttpContext.Session.Get("MASCOTA");
+                    Mascota mascota =(Mascota) HelpperBinarySession.ByteToObject(data);
+                    ViewData["MASCOTA"] = mascota;
+                }
+
+            }
             return View();
         }
 
