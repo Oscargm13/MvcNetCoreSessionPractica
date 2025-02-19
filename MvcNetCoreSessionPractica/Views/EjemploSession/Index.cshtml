@@ -1,12 +1,17 @@
-﻿@using MvcNetCoreSessionPractica.Helpers
-@using MvcNetCoreSessionPractica.Extension
+﻿@model List<Mascota>
 
-
+@using MvcNetCoreSessionPractica.Helpers
 @{
 	Mascota mascota = Context.Session.GetObject<Mascota>("MASCOTAOBJECT");
 }
 
 <h1>Ejemplos session</h1>
+
+@if(Model != null){
+	<h1 style="color: green">mascotas recuperadas: @Model.Count</h1>
+}else{
+	<h1 style="color: red">No tenemos mascotas</h1>
+}
 
 @if (mascota != null){
 	<h2 style="color: red">

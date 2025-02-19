@@ -1,17 +1,18 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
 using MvcNetCoreSessionPractica.Helpers;
+using Newtonsoft.Json;
 
 namespace MvcNetCoreSessionPractica.Extension
 {
     public static class SessionExtension
     {
-        //CREAMOS UN METODO PARA RECUPERAR CUALQUIER OBJETO 
+        //CREAMOS UN METODO PARA RECUPERAR CUALQUIER OBJETO
         public static T GetObject<T>
     (this ISession session, string key)
         {
             //YA ESTAREMOS TRABAJANDO CON  
             //HttpContext.Session 
-            //DEBEMOS RECUPERAR LO QUE TENEMOS ALMACENADO  
+            //DEBEMOS RECUPERAR LO QUE TENEMOS ALMACENADO 
             //DENTRO DE Session 
             string json = session.GetString(key);
             //QUE SUCEDE SI RECUPERAMOS ALGO DE SESSION 
@@ -26,7 +27,7 @@ namespace MvcNetCoreSessionPractica.Extension
             {
                 //RECUPERAMOS EL OBJETO QUE TENEMOS ALMACENADO DENTRO  
                 //DE NUESTRA KEY 
-                T data = HelperJsonSession.DeserializeObject<T>(json);
+                T data = JsonConvert.DeserializeObject<T>(json);
                 return data;
             }
         }
@@ -34,7 +35,7 @@ namespace MvcNetCoreSessionPractica.Extension
         public static void SetObject
         (this ISession session, string key, object value)
         {
-            string data = HelperJsonSession.SerializeObject(value);
+            string data = JsonConvert.SerializeObject(value);
             //ALMACENAMOS EL JSON DENTRO DE SESSION 
             session.SetString(key, data);
         }

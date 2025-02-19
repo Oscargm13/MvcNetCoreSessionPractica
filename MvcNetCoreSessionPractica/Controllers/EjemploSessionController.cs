@@ -7,9 +7,16 @@ namespace MvcNetCoreSessionPractica.Controllers
 {
     public class EjemploSessionController : Controller
     {
+        HelperSessionContextAccesor helper;
+
+        public EjemploSessionController(HelperSessionContextAccesor helper)
+        {
+            this.helper = helper;
+        }
         public IActionResult Index()
         {
-            return View();
+            List<Mascota> mascotas = this.helper.GetMascotasSession();
+            return View(mascotas);
         }
 
         public IActionResult SessionMascotaCollection(string accion)
