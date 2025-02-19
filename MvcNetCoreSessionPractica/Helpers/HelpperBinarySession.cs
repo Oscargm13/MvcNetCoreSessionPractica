@@ -14,6 +14,8 @@ namespace MvcNetCoreSessionPractica.Helpers
             }
         }
 
+        
+
         public static Object ByteToObject(byte[] data)
         {
             BinaryFormatter formatter = new BinaryFormatter();
